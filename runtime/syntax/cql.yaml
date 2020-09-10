@@ -1,7 +1,7 @@
-filetype: sql
+filetype: cql
 
 detect:
-    filename: "\\.sql$|sqliterc$"
+    filename: "\\.cql$"
 
 rules:
     - statement: "(?i)\\b(ALL|ASC|AS|ALTER|AND|ADD|AUTO_INCREMENT)\\b"
@@ -18,16 +18,19 @@ rules:
     - statement: "(?i)\\b(OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUTFILE|OR|OUTER|ON)\\b"
     - statement: "(?i)\\b(PROCEDURE|PROCEDURAL|PRIMARY)\\b"
     - statement: "(?i)\\b(READ|REFERENCES|REGEXP|RENAME|REPLACE|RETURN|REVOKE|RLIKE|RIGHT)\\b"
-    - statement: "(?i)\\b(SHOW|SONAME|STATUS|STRAIGHT_JOIN|SELECT|SETVAL|SET)\\b"
+    - statement: "(?i)\\b(SHOW|SONAME|STRAIGHT_JOIN|SELECT|SETVAL|SET)\\b"
     - statement: "(?i)\\b(TABLES|TERMINATED|TO|TRAILING|TRUNCATE|TABLE|TEMPORARY|TRIGGER|TRUSTED)\\b"
     - statement: "(?i)\\b(UNIQUE|UNLOCK|USE|USING|UPDATE|VALUES|VARIABLES|VIEW)\\b"
     - statement: "(?i)\\b(WITH|WRITE|WHERE|ZEROFILL|TYPE|XOR)\\b"
-    - type: "(?i)\\b(UUID|VARCHAR|TINYINT|TEXT|DATE|SMALLINT|MEDIUMINT|INT|INTEGER|BIGINT|FLOAT|DOUBLE|DECIMAL|DATETIME|TIMESTAMP|TIME|YEAR|UNSIGNED|CHAR|TINYBLOB|TINYTEXT|BLOB|MEDIUMBLOB|MEDIUMTEXT|LONGBLOB|LONGTEXT|ENUM|BOOL|BINARY|VARBINARY)\\b"
+    - statement: "(?i)\\b(NOW|DATEOF|TIMESTAMPOF|KEYSPACE|FROZEN|STATIC)\\b"
+    - type: "(?i)\\b(COUNTER|MAP|SET|LIST|UUID|TIMEUUID|CLOB|ASCII|VARCHAR|TINYINT|TEXT|DATE|SMALLINT|MEDIUMINT|INT|INTEGER|BIGINT|FLOAT|DOUBLE|DECIMAL|DATETIME|TIMESTAMP|TIME|YEAR|UNSIGNED|CHAR|TINYBLOB|TINYTEXT|BLOB|MEDIUMBLOB|MEDIUMTEXT|LONGBLOB|LONGTEXT|ENUM|BOOL|BINARY|VARBINARY)\\b"
     - preproc: "(?i)\\.\\b(databases|dump|echo|exit|explain|header(s)?|help)\\b"
     - preproc: "(?i)\\.\\b(import|indices|mode|nullvalue|output|prompt|quit|read)\\b"
     - preproc: "(?i)\\.\\b(schema|separator|show|tables|timeout|width)\\b"
     - constant.bool: "\\b(ON|OFF)\\b"
     - constant.number: "\\b([0-9]+)\\b"
+    # - constant.number: "\\b([0-9a-f\\-]+)\\b" #uuid
+    - constant.number: "\\b([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})\\b" #uuid
     - constant.string: "\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*'"
     - constant.string: "`(\\\\.|[^\\\\`])*`"
     - comment: "\\-\\-.*$"

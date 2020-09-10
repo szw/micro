@@ -219,7 +219,7 @@ func FSize(f *os.File) int64 {
 // IsWordChar returns whether or not the string is a 'word character'
 // Word characters are defined as numbers, letters, or '_'
 func IsWordChar(r rune) bool {
-	return unicode.IsLetter(r) || unicode.IsNumber(r) || r == '_'
+	return unicode.IsLetter(r) || unicode.IsNumber(r) || r == '_' || r == '-'
 }
 
 // Spaces returns a string with n spaces
@@ -422,7 +422,7 @@ func Clamp(val, min, max int) int {
 }
 
 func IsNonAlphaNumeric(c rune) bool {
-	return !unicode.IsLetter(c) && !unicode.IsNumber(c) && c != '_'
+	return !unicode.IsLetter(c) && !unicode.IsNumber(c) && c != '_' && c != '-'
 }
 
 func IsAutocomplete(c rune) bool {
