@@ -35,4 +35,4 @@ rules:
             - todo: "(TODO|XXX|FIXME):?"
 
     # keywords
-    - special: ":[A-Aa-z0-9\\-_:]+"
+    - special: ":[A-Za-z0-9\\-_:?!]+"
