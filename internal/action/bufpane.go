@@ -322,7 +322,8 @@ func (h *BufPane) Name() string {
 // HandleEvent executes the tcell event properly
 func (h *BufPane) HandleEvent(event tcell.Event) {
 	if h.Buf.ExternallyModified() {
-		if h.Buf.ReloadAutomatically {
+		// Always reload for known file types
+		if h.Buf.SyntaxDef != nil && len(h.Buf.SyntaxDef.FileType) > 0 {
 			h.Buf.ReOpen()
 		} else if !h.Buf.ReloadDisabled {
 			InfoBar.YNPrompt("The file on disk has changed. Reload file? (y,n,esc)", func(yes, canceled bool) {
@@ -333,9 +334,6 @@ func (h *BufPane) HandleEvent(event tcell.Event) {
 					h.Buf.UpdateModTime()
 				} else {
 					h.Buf.ReOpen()
-					if !h.Buf.ReloadAutomaticallyAsked {
-						InfoBar.YNPrompt("Reload this file always when changed? (y,n,esc)", h.Buf.AutoReload)
-					}
 				}
 			})
 		}

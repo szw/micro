@@ -109,10 +109,6 @@ type SharedBuffer struct {
 	// are viewing a file that is constantly changing
 	ReloadDisabled bool
 
-	// Allows to always reload file after changes (useful after code formatters)
-	ReloadAutomatically bool
-	ReloadAutomaticallyAsked bool
-
 	isModified bool
 	// Whether or not suggestions can be autocompleted must be shared because
 	// it changes based on how the buffer has changed
@@ -167,12 +163,6 @@ func (b *SharedBuffer) MarkModified(start, end int) {
 // DisableReload disables future reloads of this sharedbuffer
 func (b *SharedBuffer) DisableReload() {
 	b.ReloadDisabled = true
-}
-
-// Sets the auto reload of sharedbuffer
-func (b *SharedBuffer) AutoReload(yes, cancelled bool) {
-	b.ReloadAutomatically = !cancelled && yes
-	b.ReloadAutomaticallyAsked = !cancelled
 }
 
 const (
